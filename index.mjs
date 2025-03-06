@@ -10,7 +10,7 @@ export default async function( req, vhost ) {
     const url = new URL(req.url);
     const file = await Deno.open( path.join( vhost.root, url.pathname ) );
     const fileInfo = await file.stat();
-    const headers = { "accept-ranges": "bytes", "content-type": type };
+    const headers = { "accept-ranges": "bytes", "content-type": typeByExtension( extname( url.pathname  )) };
     if (req.method === "HEAD") {
         return new Response(null, {
             headers: {
